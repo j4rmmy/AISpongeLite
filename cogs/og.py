@@ -52,7 +52,7 @@ gain_voice_loud = -10
 gain_voice_distort = 20
 
 # Filter cutoffs
-cutoff_filter = 200
+cutoff_filter = 250
 
 # Music audio segments
 music_closing_theme = AudioSegment.from_wav("audio/music/closing_theme.wav")[:-3000]
