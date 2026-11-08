@@ -66,7 +66,7 @@ gain_random_neg = -5
 gain_random_pos = 5
 
 # Filter cutoffs
-cutoff_filter = 5000
+cutoff_phone = 6000
 
 # Music audio segment
 music_just_breaking_softer = AudioSegment.from_mp3("audio/music/just_breaking_softer.mp3")
@@ -249,7 +249,7 @@ class News(GroupCog, name="news", description="Generate episodes, TTS, and chats
 
                 # Apply phone filter for callers
                 if current_character not in ["Perch Perkins", "Mr. Fish"]:
-                    seg = high_pass_filter(seg, cutoff_filter)
+                    seg = high_pass_filter(seg, cutoff_phone)
                     combined = combined.append(silence_phone, 0)
 
                 # Apply gain
@@ -357,7 +357,7 @@ class News(GroupCog, name="news", description="Generate episodes, TTS, and chats
 
             # Apply phone to callers
             if character not in ["Perch Perkins", "Mr. Fish"]:
-                seg = high_pass_filter(seg, cutoff_filter)
+                seg = high_pass_filter(seg, cutoff_phone)
                 seg = silence_phone.append(seg, 0)
 
             # Apply gain
