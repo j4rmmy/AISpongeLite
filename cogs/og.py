@@ -61,7 +61,8 @@ music_closing_theme = AudioSegment.from_wav("audio/music/closing_theme.wav")[:-3
 sfx_random = {
     AudioSegment.from_wav("audio/sfx/random/steel_sting.wav"): 10,
     AudioSegment.from_wav("audio/sfx/random/boowomp.wav"): 5,
-    AudioSegment.from_wav("audio/sfx/random/kiss.wav"): 1
+    AudioSegment.from_wav("audio/sfx/random/kiss_short.wav"): 5,
+    AudioSegment.from_wav("audio/sfx/random/donate.wav"): 1
 }
 
 # Transition audio segments
