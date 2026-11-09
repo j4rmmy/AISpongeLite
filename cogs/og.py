@@ -52,7 +52,7 @@ gain_voice_loud = -10
 gain_voice_distort = 20
 
 # Filter cutoffs
-cutoff_filter = 250
+cutoff_filter = 500
 
 # Music audio segments
 music_closing_theme = AudioSegment.from_wav("audio/music/closing_theme.wav")[:-3000]
@@ -309,7 +309,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Export the episode and send it
             with BytesIO() as output:
-                combined.export(output, "mp3", bitrate="128k")
+                combined.export(output, "mp3", bitrate="80k")
                 await interaction.edit_original_response(embed=embed_output, attachments=[
                     File(output, title_formatted.replace("/", "\\").replace("\n", " ") + ".mp3")])
 
@@ -373,7 +373,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Export and send the file
             with BytesIO() as output:
-                seg.export(output, "mp3", bitrate="128k")
+                seg.export(output, "mp3", bitrate="80k")
                 await interaction.edit_original_response(embeds=[transcript_embed], attachments=[
                     File(output, character + ": " + text.replace("/", "\\").replace("\n", " ") + ".mp3")])
 
