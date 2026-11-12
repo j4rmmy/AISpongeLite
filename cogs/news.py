@@ -312,14 +312,14 @@ class News(GroupCog, name="news", description="Generate episodes, TTS, and chats
 
 
     @command(name="tts", description="Make a news character speak text.")
-    @describe(character="Who should speak.", text="What should be said.", limit="Whether to limit speaking time.", strokefest="Whether to simulate the strokefest event.")
+    @describe(character="Who should speak.", text="What should be said.", limit="Whether to limit speaking time (disabled during strokefest).", strokefest="Whether to simulate the strokefest event.")
     async def tts(self, interaction: Interaction, character: characters, text: Range[str, char_limit_min, char_limit_max], limit: bool = False, strokefest: bool = False):
         """
         Make a character from news episodes speak text using text-to-speech.
         :param interaction: Interaction created by the command
         :param character: Who should speak
         :param text: What should be said
-        :param limit: Whether to limit speaking time
+        :param limit: Whether to limit speaking time (disabled during strokefest)
         :param strokefest: Whether to simulate the strokefest event
         :return: None
         """
