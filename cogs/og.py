@@ -48,8 +48,9 @@ gain_music = -35
 gain_sfx = -25
 gain_transition = -25
 gain_voice = -15
-gain_voice_loud = -10
-gain_voice_distort = 20
+gain_voice_distort = 25
+gain_voice_quiet = -25
+volumes = Literal["Normal", "Loud", "Quiet"]
 
 # Filter cutoffs
 cutoff_filter = 500
@@ -264,10 +265,13 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
                         line_count -= 1
                         continue
 
-                # Apply gain, forcing a loud event sometimes
-                if not is_song_line and randrange(20) == 0:
-                    seg = seg.apply_gain(gain_voice_distort)
-                    seg = seg.apply_gain(gain_voice_loud - seg.dBFS)
+                # Apply gain, with special events for Squidward
+                if current_character == "Squidward" and not is_song_line and randrange(20) == 0:
+                    if randrange(2) == 0:
+                        seg = seg.apply_gain(gain_voice_distort)
+                        seg = seg.apply_gain(gain_voice - seg.dBFS)
+                    else:
+                        seg = seg.apply_gain(gain_voice_quiet - seg.dBFS)
                 else:
                     seg = seg.apply_gain(gain_voice - seg.dBFS)
 
@@ -326,14 +330,14 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
 
     @command(name="tts", description="Make an OG character speak text.")
-    @describe(character="Who should speak.", text="What should be said.", loud="Whether to speak loudly.")
-    async def tts(self, interaction: Interaction, character: characters, text: Range[str, char_limit_min, char_limit_max], loud: bool = False):
+    @describe(character="Who should speak.", text="What should be said.", volume="Volume to speak at (Squidward only).")
+    async def tts(self, interaction: Interaction, character: characters, text: Range[str, char_limit_min, char_limit_max], volume: volumes = "Normal"):
         """
         Make a character from OG episodes speak text using text-to-speech.
         :param interaction: Interaction created by the command
         :param character: Who should speak
         :param text: What should be said
-        :param loud: Whether to speak loudly
+        :param volume: Volume to speak at (Squidward only)
         :return: None
         """
 
@@ -362,9 +366,12 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
                 seg = await speak(character, text, "uberduck")
 
             # Apply gain
-            if loud:
-                seg = seg.apply_gain(gain_voice_distort)
-                seg = seg.apply_gain(gain_voice_loud - seg.dBFS)
+            if character == "Squidward" and volume != "Normal":
+                if volume == "Loud":
+                    seg = seg.apply_gain(gain_voice_distort)
+                    seg = seg.apply_gain(gain_voice - seg.dBFS)
+                elif volume == "Quiet":
+                    seg = seg.apply_gain(gain_voice_quiet - seg.dBFS)
             else:
                 seg = seg.apply_gain(gain_voice - seg.dBFS)
 
