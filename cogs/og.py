@@ -99,13 +99,13 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
 
     @command(name="episode", description="Generate an OG episode.")
-    @describe(topic="What the episode is about.", song="Link to an AI cover.")
+    @describe(topic="What the episode is about.", song="Link to an AI cover. Topic must include \"<character> sings\" for song topics.")
     async def episode(self, interaction: Interaction, topic: Range[str, char_limit_min, char_limit_max], song: str | None = None):
         """
         Generate an OG episode about a topic.
         :param interaction: Interaction created by the command
         :param topic: What the episode is about
-        :param song: Link to an AI cover
+        :param song: Link to an AI cover. Topic must include "<character> sings" for song topics
         :return: None
         """
 
