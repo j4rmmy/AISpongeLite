@@ -49,7 +49,7 @@ gain_sfx = -25
 gain_transition = -25
 gain_voice = -15
 gain_voice_distort = 25
-gain_voice_quiet = -25
+gain_voice_quiet = -30
 volumes = Literal["Normal", "Loud", "Quiet"]
 
 # Filter cutoffs
