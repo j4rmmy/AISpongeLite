@@ -136,14 +136,14 @@ class News(GroupCog, name="news", description="Generate episodes, TTS, and chats
 
 
     @command(name="episode", description="Generate a news episode.")
-    @describe(topic="What the episode is about.", chaos="Whether to simulate the chaos event.", strokefest="Whether to simulate the strokefest event.")
+    @describe(topic="What the episode is about.", chaos="Whether to simulate chaos hour.", strokefest="Whether to simulate strokefest.")
     async def episode(self, interaction: Interaction, topic: Range[str, char_limit_min, char_limit_max], chaos: bool = False, strokefest: bool = False):
         """
         Generate a news episode about a topic.
         :param interaction: Interaction created by the command
         :param topic: What the episode is about
-        :param chaos: Whether to simulate the chaos event
-        :param strokefest: Whether to simulate the strokefest event
+        :param chaos: Whether to simulate chaos hour
+        :param strokefest: Whether to simulate strokefest
         :return: None
         """
 
