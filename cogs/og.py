@@ -44,7 +44,7 @@ data_characters = {
 }
 
 # Gain settings for audio segments
-gain_music = -35
+gain_music = -40
 gain_sfx = -25
 gain_transition = -25
 gain_voice = -15
