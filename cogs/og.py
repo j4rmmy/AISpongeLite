@@ -65,6 +65,7 @@ sfx_random = {
     AudioSegment.from_wav("audio/sfx/random/kiss_short.wav"): 5,
     AudioSegment.from_wav("audio/sfx/random/donate.wav"): 1
 }
+sfx_failed = AudioSegment.from_wav("audio/sfx/random/steel_sting.wav")
 
 # Transition audio segments
 transition = AudioSegment.from_wav("audio/transition/og.wav")
@@ -72,7 +73,6 @@ transition = transition.apply_gain(gain_transition - transition.dBFS)
 
 # Voice audio segments
 voice_gary = AudioSegment.from_wav("audio/voice/gary/gary_1.wav")
-voice_failed = AudioSegment.from_wav("audio/voice/failed.wav")
 
 # Silence audio segments
 silence_line = AudioSegment.silent(1500)
@@ -325,7 +325,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "wav")
+                sfx_failed.export(output, "wav")
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
 
 
@@ -392,7 +392,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "wav")
+                sfx_failed.export(output, "wav")
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
 
 
@@ -445,7 +445,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "wav")
+                sfx_failed.export(output, "wav")
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
 
 
