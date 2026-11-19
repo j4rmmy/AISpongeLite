@@ -82,6 +82,9 @@ silence_intro = AudioSegment.silent(750)
 char_limit_min = 1
 char_limit_max = 512
 
+# Audio file bitrate
+bitrate = "80k"
+
 
 class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats based on OG topics."):
     """
@@ -313,7 +316,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Export the episode and send it
             with BytesIO() as output:
-                combined.export(output, "mp3", bitrate="80k")
+                combined.export(output, "mp3", bitrate=bitrate)
                 await interaction.edit_original_response(embed=embed_output, attachments=[
                     File(output, title_formatted.replace("/", "\\").replace("\n", " ") + ".mp3")])
 
@@ -325,8 +328,8 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                sfx_failed.export(output, "wav")
-                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
+                sfx_failed.export(output, "mp3", bitrate=bitrate)
+                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 
     @command(name="tts", description="Make an OG character speak text.")
@@ -380,7 +383,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Export and send the file
             with BytesIO() as output:
-                seg.export(output, "mp3", bitrate="80k")
+                seg.export(output, "mp3", bitrate=bitrate)
                 await interaction.edit_original_response(embeds=[transcript_embed], attachments=[
                     File(output, character + ": " + text.replace("/", "\\").replace("\n", " ") + ".mp3")])
 
@@ -392,8 +395,8 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                sfx_failed.export(output, "wav")
-                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
+                sfx_failed.export(output, "mp3", bitrate=bitrate)
+                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 
     @command(name="chat", description="Chat with an OG character.")
@@ -445,8 +448,8 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
 
             # Show failed message
             with BytesIO() as output:
-                sfx_failed.export(output, "wav")
-                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.wav")])
+                sfx_failed.export(output, "mp3", bitrate=bitrate)
+                await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 
 async def setup(bot):
