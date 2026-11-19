@@ -475,7 +475,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "mp3", bitrate=bitrate)
+                voice_failed.apply_gain(gain_voice - voice_failed.dBFS).export(output, "mp3", bitrate=bitrate)
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 
@@ -565,7 +565,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "mp3", bitrate=bitrate)
+                voice_failed.apply_gain(gain_voice - voice_failed.dBFS).export(output, "mp3", bitrate=bitrate)
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 
@@ -618,7 +618,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
             # Show failed message
             with BytesIO() as output:
-                voice_failed.export(output, "mp3", bitrate=bitrate)
+                voice_failed.apply_gain(gain_voice - voice_failed.dBFS).export(output, "mp3", bitrate=bitrate)
                 await interaction.edit_original_response(embed=embed_failed, attachments=[File(output, "Failed.mp3")])
 
 

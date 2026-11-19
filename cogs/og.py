@@ -66,6 +66,7 @@ sfx_random = {
     AudioSegment.from_wav("audio/sfx/random/donate.wav"): 1
 }
 sfx_failed = AudioSegment.from_wav("audio/sfx/random/steel_sting.wav")
+sfx_failed = high_pass_filter(sfx_failed.apply_gain(gain_sfx - sfx_failed.dBFS), cutoff_filter)
 
 # Transition audio segments
 transition = AudioSegment.from_wav("audio/transition/og.wav")
