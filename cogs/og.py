@@ -235,8 +235,8 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
                     }
                     with YoutubeDL(options) as ydl:
                         info = ydl.extract_info(song, False)
-                        if info['duration'] > 300:
-                            raise Exception("Video is longer than five minutes.")
+                        if info['duration'] > 360:
+                            raise Exception("Video is longer than six minutes.")
                         ydl.download([song])
 
                     # Load wav file
