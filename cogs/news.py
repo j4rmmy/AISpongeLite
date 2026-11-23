@@ -423,7 +423,7 @@ class News(GroupCog, name="news", description="Generate episodes, TTS, and chats
             await interaction.edit_original_response(embeds=[user_embed, typing_embed])
 
             # Generate chat response
-            response = await write(f"Write a response to a news interview question as {character} from SpongeBob. Only respond with {character}'s response using the format: \"{character}: <response>\". The question from \"{interaction.user.display_name}\" says: \"{message}\".", drunk)
+            response = await write(f"Write a response to a news interview question as {character} from SpongeBob. Only respond with {character}'s brief response using the format: \"{character}: <response>\". The question from \"{interaction.user.display_name}\" says: \"{message}\".", drunk)
             output = escape_markdown(sub(regex_actions, "", response.split(":", 1)[1].strip())[:char_limit_max].strip())
 
             # Show character's response

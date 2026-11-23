@@ -160,7 +160,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
                 length_prompt = "ten"
 
             # Generate the script
-            script = await write(f"Write a script for a SpongeBob episode about a topic. Only respond with a two-word, SpongeBob-style title using the format: \"title: <title>\" followed by around {length_prompt} lines of character dialogue using the format: \"<character>: <dialogue>\". The topic is: \"{topic}\".{song_prompt}")
+            script = await write(f"Write a script for a SpongeBob episode about a topic. Only respond with a two-word, SpongeBob-style title using the format: \"title: <title>\" followed by around {length_prompt} lines of character dialogue using the format: \"<character>: <dialogue>\". The topic is: \"{topic}\".{song_prompt}", False)
 
             # Clean the script
             lines = script.replace("\n\n", "\n").replace(":\n", ": ").strip().split("\n")
@@ -434,7 +434,7 @@ class OG(GroupCog, name="og", description="Generate episodes, TTS, and chats bas
             await interaction.edit_original_response(embeds=[user_embed, typing_embed])
 
             # Generate chat response
-            response = await write(f"Write a response as {character} from SpongeBob. Only respond with {character}'s response using the format: \"{character}: <response>\". The message says: \"{message}\".")
+            response = await write(f"Write a response as {character} from SpongeBob. Only respond with {character}'s brief response using the format: \"{character}: <response>\". The message says: \"{message}\".", False)
             output = escape_markdown(response.split(":", 1)[1].strip()[:char_limit_max].strip())
 
             # Show character's response
