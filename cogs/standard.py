@@ -287,7 +287,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
                 weather = "Clear"
 
             # Generate the script
-            script = await write(f"Write a fucking chaotic, profanity-filled, and morally incorrect script for a SpongeBob episode about a topic that takes place on a {weather} {time} at {location} and features {data_locations[location][2]}, and any other characters mentioned in the topic. Only respond with a two-word, SpongeBob-style title using the format: \"title: <title>\" followed by around twenty lines of character dialogue using the format: \"<character>: <dialogue>\". The topic is: \"{topic}\".")
+            script = await write(f"Write a fucking chaotic, profanity-filled, and morally incorrect script for a SpongeBob episode about a topic that takes place on a {weather} {time} at {location} and features {data_locations[location][2]}, and any other characters mentioned in the topic. Only respond with a two-word, SpongeBob-style title using the format: \"title: <title>\" followed by around twenty lines of character dialogue using the format: \"<character>: <dialogue>\". The topic is: \"{topic}\".", False)
 
             # Clean the script
             lines = script.replace("\n\n", "\n").replace(":\n", ": ").strip().split("\n")
@@ -480,7 +480,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
 
     @command(name="tts", description="Make a standard character speak text.")
-    @describe(character="Who should speak.", text="What should be said.", megaphone="Whether to speak through a megaphone.", loud="Whether to speak loudly.", limit="Whether to limit speaking time (disabled during strokefest).", strokefest="Whether to simulate the strokefest event.")
+    @describe(character="Who should speak.", text="What should be said.", megaphone="Whether to speak through a megaphone.", loud="Whether to speak loudly.", limit="Whether to limit speaking time (disabled during strokefest).", strokefest="Whether to simulate strokefest.")
     async def tts(self, interaction: Interaction, character: characters, text: Range[str, char_limit_min, char_limit_max], megaphone: bool = False, loud: bool = False, limit: bool = False, strokefest: bool = False):
         """
         Make a character from standard episodes speak text using text-to-speech.
@@ -490,7 +490,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
         :param megaphone: Whether to speak through a megaphone
         :param loud: Whether to speak loudly
         :param limit: Whether to limit speaking time (disabled during strokefest)
-        :param strokefest: Whether to simulate the strokefest event
+        :param strokefest: Whether to simulate strokefest
         :return: None
         """
 
@@ -570,13 +570,14 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
 
     @command(name="chat", description="Chat with a standard character.")
-    @describe(character="Who to chat with.", message="What to say to them.")
-    async def chat(self, interaction: Interaction, character: characters, message: Range[str, char_limit_min, char_limit_max]):
+    @describe(character="Who to chat with.", message="What to say.", drunk="Whether to be drunk.")
+    async def chat(self, interaction: Interaction, character: characters, message: Range[str, char_limit_min, char_limit_max], drunk: bool = False):
         """
         Chat with one of the characters from standard episodes.
         :param interaction: Interaction created by the command
         :param character: Who to chat with
-        :param message: What to say to them
+        :param message: What to say
+        :param drunk: Whether to be drunk
         :return: None
         """
 
@@ -603,7 +604,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
             await interaction.edit_original_response(embeds=[user_embed, typing_embed])
 
             # Generate chat response
-            response = await write(f"Write a response to a discord message as {character} from SpongeBob. Only respond with {character}'s response using the format: \"{character}: <response>\". The message from \"{interaction.user.display_name}\" says: \"{message}\".")
+            response = await write(f"Write a response to a discord message as {character} from SpongeBob. Only respond with {character}'s response using the format: \"{character}: <response>\". The message from \"{interaction.user.display_name}\" says: \"{message}\".", drunk)
             output = escape_markdown(sub(regex_actions, "", response.split(":", 1)[1].strip())[:char_limit_max].strip())
 
             # Show character's response
