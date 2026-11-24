@@ -41,7 +41,7 @@ class Access(Cog):
         load_dotenv(override=True)
 
         # Create a set to store updated set of Discord user IDs, starting with the admin users
-        new_discord_user_ids = {int(x) for x in str(getenv("DISCORD_ADMIN_USER_IDS")).split(",")}
+        new_user_ids = {int(x) for x in str(getenv("DISCORD_ADMIN_USER_IDS")).split(",")}
 
         # Log in to Patreon API
         api = API(getenv("PATREON_ACCESS_TOKEN"))
@@ -58,9 +58,9 @@ class Access(Cog):
             for member in members.data():
 
                 # Check if the member is an active patron and has a linked Discord account, then add their Discord user ID to the set
-                discord_id = member.relationship('user').attribute('social_connections').get('discord')
-                if member.attribute('patron_status') == 'active_patron' and discord_id is not None:
-                    new_discord_user_ids.add(int(discord_id.get("user_id")))
+                discord_data = member.relationship('user').attribute('social_connections').get('discord')
+                if member.attribute('patron_status') == 'active_patron' and discord_data is not None:
+                    new_user_ids.add(int(discord_data.get("user_id")))
 
             # Check if there is a next page of results
             try:
@@ -71,8 +71,8 @@ class Access(Cog):
                 break
 
         # Update the global set of Discord user IDs with the new set
-        self.bot.permitted_discord_user_ids = new_discord_user_ids
-        logger.info(f"Permitted users: {self.bot.permitted_discord_user_ids}")
+        self.bot.permitted_user_ids = new_user_ids
+        logger.info(f"Permitted users: {self.bot.permitted_user_ids}")
 
 
 async def setup(bot):

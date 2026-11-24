@@ -39,7 +39,7 @@ class AISpongeLite(Bot):
         super().__init__(command_prefix="/", intents=Intents.default(), allowed_installs=AppInstallationType(guild=True, user=False), allowed_contexts=AppCommandContext(guild=True, dm_channel=False, private_channel=True), activity=Game("5.0.0"))
 
         # Initialize variables used throughout the bot
-        self.permitted_discord_user_ids = {int(x) for x in str(getenv("DISCORD_ADMIN_USER_IDS")).split(",")}
+        self.permitted_user_ids = {int(x) for x in str(getenv("DISCORD_ADMIN_USER_IDS")).split(",")}
         self.fetched_emojis = {}
         self.logging_channel = None
 
