@@ -24,7 +24,8 @@ logger = getLogger(__name__)
 
 # Reused embeds
 embed_failed = Embed(title="Generation Failed!", description="Edit your input, or try again later.", color=0xff0000)
-embed_not_permitted = Embed(title="Gain Access to AI Sponge Lite!", description="**[Purchase a subscription](https://www.patreon.com/cw/AISpongeLite/membership)** or boost this server to unlock **/standard** commands.", color=0x1849b0).set_image(url="attachment://banner.png")
+embed_incorrect_guild = Embed(title="Use More of AI Sponge Lite!", description="Join **[AI Sponge Rehydrated](https://discord.com/channels/1193757079501017228/1386682827394908220)** to use **/standard episode** and **/standard tts**.", color=0x1849b0).set_image(url="attachment://banner.png")
+embed_not_subscribed = Embed(title="Gain Access to AI Sponge Lite!", description="**[Purchase a subscription](https://www.patreon.com/cw/AISpongeLite/membership)** or boost this server to unlock **/standard** commands.", color=0x1849b0).set_image(url="attachment://banner.png")
 embed_delete_after = 30
 
 # Regex patterns for script modification
@@ -246,9 +247,14 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
         :return: None
         """
 
+        # Check if command is run from another guild
+        if interaction.guild.id != self.bot.main_guild_id:
+            await interaction.response.send_message(embed=embed_incorrect_guild, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
+            return
+
         # Check if user has access
         if interaction.user.premium_since is None and interaction.user.id not in self.bot.permitted_user_ids:
-            await interaction.response.send_message(embed=embed_not_permitted, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
+            await interaction.response.send_message(embed=embed_not_subscribed, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
             return
 
         # Start generation
@@ -494,9 +500,14 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
         :return: None
         """
 
+        # Check if command is run from another guild
+        if interaction.guild.id != self.bot.main_guild_id:
+            await interaction.response.send_message(embed=embed_incorrect_guild, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
+            return
+
         # Check if user has access
         if interaction.user.premium_since is None and interaction.user.id not in self.bot.permitted_user_ids:
-            await interaction.response.send_message(embed=embed_not_permitted, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
+            await interaction.response.send_message(embed=embed_not_subscribed, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
             return
 
         # Start generation
@@ -583,7 +594,7 @@ class Standard(GroupCog, name="standard", description="Generate episodes, TTS, a
 
         # Check if user has access
         if interaction.user.premium_since is None and interaction.user.id not in self.bot.permitted_user_ids:
-            await interaction.response.send_message(embed=embed_not_permitted, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
+            await interaction.response.send_message(embed=embed_not_subscribed, file=File("image/profile/banner.png"), ephemeral=True, delete_after=embed_delete_after)
             return
 
         # Start generation

@@ -40,6 +40,7 @@ class AISpongeLite(Bot):
 
         # Initialize variables used throughout the bot
         self.permitted_user_ids = {int(x) for x in str(getenv("DISCORD_ADMIN_USER_IDS")).split(",")}
+        self.main_guild_id = int(str(getenv("DISCORD_MAIN_GUILD_ID")))
         self.fetched_emojis = {}
         self.logging_channel = None
 
